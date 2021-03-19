@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OrederDrink.Models.ChooseStore;
+using OrederDrink.Models.ChooseStore.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +22,12 @@ namespace OrederDrink.Controllers
         {
             return View();
         }
-       
+        public IActionResult ChooseStore()
+        {
+            ChooseStoreViewModel ViewModel = new ChooseStoreViewModel();
+            ChooseStoreSetModel model = new ChooseStoreSetModel();
+            ViewModel.StoreList = model.GetStoreList();
+            return View(ViewModel);
+        }
     }
 }

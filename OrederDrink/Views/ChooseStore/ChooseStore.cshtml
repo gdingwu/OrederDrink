@@ -1,0 +1,36 @@
+﻿@model OrederDrink.Models.ChooseStore.ViewModel.ChooseStoreViewModel
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+<div ng-app="App" ng-controller="AppController">
+    <div class="row">
+        <div class="col-md-2">
+            <select class="form-control  w-150px" ng-Model="selectedStore">
+                <option ng-repeat="x in StoreList" value="{{x.StoreID}}" id="selectedApp"> {{x.StoreName}}</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button> xxxxx</button>
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="~/js/angular.js"></script>
+    <script>
+
+        var app = angular.module('App', []);
+
+        app.controller('AppController', function ($scope, $http, $timeout) {
+            $scope.StoreList = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(this.Model.StoreList));
+
+
+        })
+    </script>
+}
+
+
