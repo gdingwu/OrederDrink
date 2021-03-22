@@ -6,17 +6,38 @@
     <div class="row">
         <div class="col-md-2">
             <div class="col-md-10">
-                <select class="form-control" id="selectedStore" name="selectedStore" ng-options="x  in StoreList" ng-model="x.StoreName" ng-change="selectDrink(x.Id)"></select>
+                選擇飲料店:
+                <select class="form-control" ng-model="selectedStore" ng-change="selectDrink(selectedStore)">
+                    <option id="selectedStore" ng-repeat="x in StoreList" value="{{x.Id}}">{{x.StoreName}}</option>
+                </select>
             </div>
-            @*<select class="form-control  w-150px" ng-model="selectedStore" ng-change="selectDrink(x.Id)">
-                <option ng-repeat="x in StoreList" value="{{x.Id}}" id="selectedStore"> {{x.StoreName}}</option>
-            </select>*@
+
         </div>
         <div class="col-md-2">
             <button> xxxxx</button>
         </div>
 
     </div>
+    <div style="height: 500px; width:1200px;overflow:scroll;">
+        <div class="panel ">
+            <table id="DataTable1" class="table table-bordered" hidden style="height: 500px; width:auto;">
+                <tr class="success Stick">
+                    <td>飲料</td>
+                    <td>價格</td>
+                    <td>大小</td>
+                </tr>
+                <tr ng-repeat="x in BeverageList">
+                    <td>{{x.Beverage}}</td>
+                    <td>{{x.Price}}</td>
+                    <td>{{x.Szie}}</td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+
+
 
 </div>
 
@@ -24,6 +45,7 @@
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="~/js/angular.js"></script>
+    <script src="~/js/angular.min.js"></script>
     <script>
 
         var app = angular.module('App', []);
@@ -32,6 +54,29 @@
             $scope.StoreList = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(this.Model.StoreList));
             $scope.selectDrink = function (storeid) {
                 console.log(storeid);
+                $scope.BeverageList = [];
+                $("#DataTable1").hide();
+                var url = "GetBervage"
+                var req = {
+                    method: 'get',//请求的方式
+                    url: url,//请求的地址
+                    data: {
+                        StoreID: storeid
+                    }
+                }
+                console.log(req);
+                $http(req).then(function success(response) {
+                    console.log(response);
+                    let a = JSON.parse(response.data.code);
+                    if (a > 0) {
+                        $scope.BeverageList = JSON.parse(response.data.BeverageList);
+                        $("#DataTable1").show();
+                    } else {
+                        alert(response.data.msg);
+                    }
+                });
+
+
             }
         })
     </script>

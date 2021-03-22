@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 using OrederDrink.Models.ChooseStore;
 using OrederDrink.Models.ChooseStore.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static OrederDrink.DBModel.StoreDBModel;
 
 namespace OrederDrink.Controllers
 {
@@ -28,6 +30,11 @@ namespace OrederDrink.Controllers
             ChooseStoreSetModel model = new ChooseStoreSetModel();
             ViewModel.StoreList = model.GetStoreList();
             return View(ViewModel);
+        }
+        public JObject GetBervage( string StoreID) 
+        {
+            ChooseStoreSetModel model = new ChooseStoreSetModel();
+            return model.BervageList_Get(Convert.ToInt32(StoreID));
         }
     }
 }

@@ -3,17 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static OrederDrink.DBModel.StoreDBModel;
 
 namespace OrederDrink.Models.ChooseStore.ViewModel
 {
     public class ChooseStoreViewModel
     {
-        public List<StoreDBModel> StoreList { get; set; }
-        //public class StoreModel 
-        //{
-        //    public string StoreName { get; set; }
-        //    public int ID { get; set; }
-        //    public int Status { get; set; }
-        //}
+        public List<StoreModel> StoreList { get; set; }
+        public List<BeverageModel> BeverageList { get; set; }
+
     }
 }
