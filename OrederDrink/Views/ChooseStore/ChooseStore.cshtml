@@ -5,9 +5,12 @@
 <div ng-app="App" ng-controller="AppController">
     <div class="row">
         <div class="col-md-2">
-            <select class="form-control  w-150px" ng-Model="selectedStore">
-                <option ng-repeat="x in StoreList" value="{{x.StoreID}}" id="selectedApp"> {{x.StoreName}}</option>
-            </select>
+            <div class="col-md-10">
+                <select class="form-control" id="selectedStore" name="selectedStore" ng-options="x  in StoreList" ng-model="x.StoreName" ng-change="selectDrink(x.Id)"></select>
+            </div>
+            @*<select class="form-control  w-150px" ng-model="selectedStore" ng-change="selectDrink(x.Id)">
+                <option ng-repeat="x in StoreList" value="{{x.Id}}" id="selectedStore"> {{x.StoreName}}</option>
+            </select>*@
         </div>
         <div class="col-md-2">
             <button> xxxxx</button>
@@ -27,8 +30,9 @@
 
         app.controller('AppController', function ($scope, $http, $timeout) {
             $scope.StoreList = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(this.Model.StoreList));
-
-
+            $scope.selectDrink = function (storeid) {
+                console.log(storeid);
+            }
         })
     </script>
 }

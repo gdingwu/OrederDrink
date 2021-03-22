@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OrederDrink.DBModel;
+using OrederDrink.Models.DB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,10 +10,11 @@ namespace OrederDrink.Models.ChooseStore
 {
     public class ChooseStoreSetModel
     {
-        public List<StoreModel> GetStoreList() {
-            List<StoreModel> list = new List<StoreModel>();
-            list.Add(new StoreModel { StoreName ="約翰紅茶", StoreID =1 ,Status=1});
-            list.Add(new StoreModel { StoreName = "可不可", StoreID = 2, Status = 1 });
+        public List<StoreDBModel> GetStoreList() {
+            StoreDB DB = new StoreDB();
+            List<StoreDBModel> list = DB.SP_StoreGet();
+            //list.Add(new StoreModel { StoreName ="約翰紅茶", ID =1 ,Status=1});
+            //list.Add(new StoreModel { StoreName = "可不可", ID = 2, Status = 1 });
             return list;
         }
     }
